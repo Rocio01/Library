@@ -14,7 +14,16 @@
 <button id="addBookButton">Add Book </button>
  <div id="addBookModal" class="bookModal">
 <p>asdfghj</p>
-    <form action=""></form>
+    <form action="">
+        <input type="text" name="title" placeholder="Title" required maxlength="50" /> <br>
+        <input type="text" name="author" placeholder="Author" required maxlength="50" /> <br>
+        <input type="number" name="pages" placeholder="Pages" required max="50000" /> <br>
+        <select name="readStatus"> 
+            <option value="true">Read</option>
+            <option value="false">Not read yet</option>
+    </select>
+        <input type="submit"  value="Add Book"/>
+    </form>
 
  </div>
 
