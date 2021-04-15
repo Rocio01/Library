@@ -13,19 +13,54 @@ Book.prototype.changeRead = function(read) {
      this.read = this.read ? false : true; 
 } 
 
-// let book1 = new Book("example", "jr", 100, true);
-// console.log(book1);
-// book1.changeRead();
-// console.log(book1);
-
 function addBookToLibrary(book){
  myLibrary.push(book);
 }
 
-
 function deleteBook(book) {
     myLibrary.splice(myLibrary.indexOf(book), 1);
 }
+
+let addBookButton = document.getElementById("addBookButton");
+let addBookModal = document.getElementById("addBookModal");
+let form = document.getElementById("bookForm");
+// const submitBtn = document.getElementById("submit");
+
+function CreateBook() {
+    let title = form.elements['title'].value;
+    let author = form.elements['author'].value;
+    let pages = form.elements['pages'].value;
+    let read = form.elements['readStatus'].value;
+    let myBook = new Book(title, author, pages, read);
+    addBookToLibrary(myBook);
+    console.log(myLibrary)
+    addRow(myBook);
+}
+
+// form.addEventListener('submit', event => {
+//     event.preventDefault();
+//     let title = form.elements['title'].value;
+//     let author = form.elements['author'].value;
+//     let pages = form.elements['pages'].value;
+//     let read = form.elements['read'].value;
+//     console.log(read)
+//     let myBook = new Book(title, author, pages, read);
+//     console.log(myBook);
+//     addBookToLibrary(myBook);
+//     addRow(myBook);
+//   })
+
+// form.addEventListener('submit', () => {
+//     let title = form.elements['title'].value;
+//     let author = form.elements['author'].value;
+//     let pages = form.elements['pages'].value;
+//     let read = form.elements['read'].value;
+//     console.log(read)
+//     let myBook = new Book(title, author, pages, read);
+//     console.log(myBook);
+//     addBookToLibrary(myBook);
+//     addRow(myBook);
+// });
 
 let table = document.getElementById('table');
 
@@ -43,23 +78,6 @@ function addRow(book) {
     deleteCell.innerHTML = 'Delete';
 }
 
-let addBookButton = document.getElementById("addBookButton");
-let addBookModal = document.getElementById("addBookModal");
-let form = document.getElementById("bookForm");
-let submitBtn = document.getElementById("submit");
-
-submitBtn.addEventListener('submit', (event) => {
-    let title = form.element['title'].value;
-    let author = form.element['author'].value;
-    let pages = form.element['pages'].value;
-    let read = form.element['read'].value;
-    myBook = new Book(title, author, pages, read);
-    addBookToLibrary(myBook)
-    addRow(myBook)
-});
-
-// book variables 
-
 addBookButton.onclick = function(){
     addBookModal.style.display = "block";
 }
@@ -69,5 +87,3 @@ window.onclick = function(event) {
         addBookModal.style.display = "none";
     }
 }
-
-console.log(myLibrary)
