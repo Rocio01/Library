@@ -27,5 +27,18 @@ function deleteBook(book) {
     myLibrary.splice(myLibrary.indexOf(book), 1);
 }
 
+var addBookButton = document.getElementById("addBookButton");
+var addBookModal = document.getElementById("addBookModal");
+
+addBookButton.onclick = function(){
+    addBookModal.style.display = "block";
+}
+
+window.onclick = function(event) {
+    if (event.target === addBookModal) {
+        addBookModal.style.display = "none";
+    }
+}
+
 
 
