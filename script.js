@@ -10,7 +10,7 @@ function Book(title, author, pages, read) {
 }
 
 Book.prototype.changeRead = function(read) {
-     this.read = this.read == true ? false : true; 
+     this.read = this.read ? false : true; 
 } 
 
 // let book1 = new Book("example", "jr", 100, true);
@@ -23,6 +23,9 @@ function addBookToLibrary(book){
 }
 
 
+function deleteBook(book) {
+    myLibrary.splice(myLibrary.indexOf(book), 1);
+}
 
 
 
