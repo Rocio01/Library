@@ -1,6 +1,9 @@
 'use strict'; 
 
 let myLibrary = [];
+if (localStorage.getItem("books")) {
+    myLibrary = JSON.parse(localStorage.getItem("books"));
+} 
 
 function Book(title, author, pages, read) {
     this.title = title;
@@ -15,17 +18,21 @@ Book.prototype.changeRead = function(read) {
 
 function addBookToLibrary(book){
  myLibrary.push(book);
+ localStorage.setItem("books", JSON.stringify(myLibrary));
 }
 
 function deleteBook(book) {
     myLibrary.splice(myLibrary.indexOf(book), 1);
+    
 }
 
 let addBookButton = document.getElementById("addBookButton");
 let addBookModal = document.getElementById("addBookModal");
 let form = document.getElementById("bookForm");
 
-form.addEventListener('submit', () => {
+form.addEventListener('submit', (e) => {
+
+    e.preventDefault();
     let title = form.elements['title'].value;
     let author = form.elements['author'].value;
     let pages = form.elements['pages'].value;
@@ -34,6 +41,8 @@ form.addEventListener('submit', () => {
     addBookToLibrary(myBook);
     addRow(myBook);
 });
+
+
 
 let table = document.getElementById('table');
 
@@ -60,3 +69,5 @@ window.onclick = function(event) {
         addBookModal.style.display = "none";
     }
 }
+
+
