@@ -24,6 +24,9 @@ function addBookToLibrary(book) {
 
 function deleteBook(book) {
   myLibrary.splice(myLibrary.indexOf(book), 1);
+  localStorage.setItem("books", JSON.stringify(myLibrary));
+  let row = document.getElementById(`bookRow${book.id}`);
+  row.remove();
 }
 
 let addBookButton = document.getElementById("addBookButton");
@@ -45,6 +48,7 @@ let table = document.getElementById("table");
 
 function addRow(book) {
   let row = table.insertRow();
+  row.id = `bookRow${book.id}`;
   let titleCell = row.insertCell();
   let authorCell = row.insertCell();
   let pagesCell = row.insertCell();
@@ -62,7 +66,13 @@ function addDeleteBtn(book) {
   let deleteBtn = document.createElement("button");
   let deleteCell = document.getElementById(`deleteCell${book.id}`);
   deleteBtn.innerHTML = "Delete";
+
+  deleteBtn.onclick = deleteBook(book);
+
+
   deleteCell.appendChild(deleteBtn);
+
+
 }
 
 addBookButton.onclick = function () {
@@ -74,3 +84,4 @@ window.onclick = function (event) {
     addBookModal.style.display = "none";
   }
 };
+
