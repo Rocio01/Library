@@ -35,7 +35,7 @@ let addBookModal = document.getElementById("addBookModal");
 let form = document.getElementById("bookForm");
 
 addBookButton.onclick = function () {
-    addBookModal.style.display = "block";
+    addBookModal.style.display = "flex";
   };
 
   window.onclick = function (event) {
