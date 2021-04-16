@@ -13,7 +13,7 @@ function Book(title, author, pages, read) {
 }
 
 Book.prototype.changeRead = function () {
-  this.read = this.read === "true"  ? "false" : "true";
+  this.read = this.read ? false : true;
 };
 
 function addBookToLibrary(book) {
@@ -49,7 +49,7 @@ form.addEventListener("submit", (e) => {
   let title = form.elements["title"].value;
   let author = form.elements["author"].value;
   let pages = form.elements["pages"].value;
-  let read = form.elements["readStatus"].value;
+  let read = (form.elements["readStatus"].value === "true");
   let myBook = new Book(title, author, pages, read);
   addBookToLibrary(myBook);
   addRow(myBook);
@@ -88,7 +88,7 @@ function addDeleteBtn(book) {
 function bookStatusButton(book) {
   let bookStatusButton = document.createElement("button");
   let readCell = document.getElementById(`readCell${book.id}`);
-  bookStatusButton.innerHTML = book.read == "true" ? "Read" : "Not read yet";
+  bookStatusButton.innerHTML = book.read ? "Read" : "Not read yet";
   readCell.appendChild(bookStatusButton);
   bookStatusButton.addEventListener("click", () => {
     book.changeRead();
@@ -98,7 +98,7 @@ function bookStatusButton(book) {
 
 function updateStatusButton(button, book){  
   // localStorage.setItem("books", JSON.stringify(myLibrary));
-  button.innerHTML = book.read == "true" ? "Read" : "Not read yet";
+  button.innerHTML = book.read ? "Read" : "Not read yet";
 }
 
 
