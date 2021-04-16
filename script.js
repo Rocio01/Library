@@ -22,13 +22,13 @@ function addBookToLibrary(book) {
   localStorage.setItem("books", JSON.stringify(myLibrary));
 }
 
-// function deleteBook(book) {
-//   myLibrary.splice(book.id, 1);
-//   localStorage.setItem("books", JSON.stringify(myLibrary));
-//   let row = document.getElementById(`bookRow${book.id}`);
-//   row.remove();
-//   return myLibrary;
-// }
+function deleteBook(book) {
+  myLibrary.splice(book.id, 1);
+  localStorage.setItem("books", JSON.stringify(myLibrary));
+  let row = document.getElementById(`bookRow${book.id}`);
+  row.remove();
+  return myLibrary;
+}
 
 let addBookButton = document.getElementById("addBookButton");
 let addBookModal = document.getElementById("addBookModal");
@@ -79,10 +79,7 @@ function addDeleteBtn(book) {
   deleteBtn.innerHTML = "Delete";
   deleteCell.appendChild(deleteBtn);
   deleteBtn.addEventListener("click", () => {
-    myLibrary.splice(book.id, 1);
-    localStorage.setItem("books", JSON.stringify(myLibrary));
-    let row = document.getElementById(`bookRow${book.id}`);
-    row.remove();
+    deleteBook(book);
   })
 }
 
