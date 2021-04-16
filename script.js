@@ -53,6 +53,7 @@ form.addEventListener("submit", (e) => {
   let myBook = new Book(title, author, pages, read);
   addBookToLibrary(myBook);
   addRow(myBook);
+  addBookModal.style.display = "none";
 });
 
 let table = document.getElementById("table");
