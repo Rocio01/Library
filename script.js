@@ -56,7 +56,7 @@ function addRow(book) {
     titleCell.innerHTML = book.title;
     authorCell.innerHTML = book.author;
     pagesCell.innerHTML = book.pages;
-    readCell.innerHTML = book.read ? 'Read' : 'Not read yet';
+    readCell.innerHTML = book.read === true ? 'Read' : 'Not read yet';
     deleteCell.innerHTML = 'Delete';
 }
 
