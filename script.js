@@ -64,13 +64,14 @@ function addRow(book) {
   let authorCell = row.insertCell();
   let pagesCell = row.insertCell();
   let readCell = row.insertCell();
-  let deleteCell = row.insertCell();
+  let deleteCell = row.insertCell();  
   deleteCell.id = `deleteCell${book.id}`;
+  readCell.id = `readCell${book.id}`;
   titleCell.innerHTML = book.title;
   authorCell.innerHTML = book.author;
   pagesCell.innerHTML = book.pages;
-  readCell.innerHTML = book.read === true ? "Read" : "Not read yet";
-  addDeleteBtn(book)
+  bookStatusButton(book);
+  addDeleteBtn(book);
 }
 
 function addDeleteBtn(book) {
@@ -81,6 +82,13 @@ function addDeleteBtn(book) {
   deleteBtn.addEventListener("click", () => {
     deleteBook(book);
   })
+}
+
+function bookStatusButton(book) {
+  let bookStatusButton = document.createElement("button");
+  let readCell = document.getElementById(`readCell${book.id}`);
+  bookStatusButton.innerHTML = book.read == "true" ? "Read" : "Not read yet";
+  readCell.appendChild(bookStatusButton);
 }
 
 
