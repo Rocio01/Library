@@ -1,6 +1,5 @@
-"use strict";
-
-let myLibrary = [];
+const myLibrary = [];
+const table = document.getElementById('table');
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -10,57 +9,54 @@ function Book(title, author, pages, read) {
 }
 
 Book.prototype.changeRead = function () {
-  this.read = this.read ? false : true;
+  this.read = !this.read;
 };
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
-  book.id = myLibrary.indexOf(book)
+  book.id = myLibrary.indexOf(book);
 }
 
 function deleteBook(book) {
   myLibrary.splice(book.id, 1);
-  let row = document.getElementById(`bookRow${book.id}`);
+  const row = document.getElementById(`bookRow${book.id}`);
   row.remove();
   return myLibrary;
 }
 
-let addBookButton = document.getElementById("addBookButton");
-let addBookModal = document.getElementById("addBookModal");
-let form = document.getElementById("bookForm");
+function updateStatusButton(button, book) {
+  button.innerHTML = book.read ? 'Read' : 'Not read yet';
+}
 
-addBookButton.onclick = function () {
-    addBookModal.style.display = "flex";
-  };
+function bookStatusButton(book) {
+  const bookStatusButton = document.createElement('button');
+  const readCell = document.getElementById(`readCell${book.id}`);
+  bookStatusButton.innerHTML = book.read ? 'Read' : 'Not read yet';
+  readCell.appendChild(bookStatusButton);
+  bookStatusButton.addEventListener('click', () => {
+    book.changeRead();
+    updateStatusButton(bookStatusButton, book);
+  });
+}
 
-  window.onclick = function (event) {
-    if (event.target === addBookModal) {
-      addBookModal.style.display = "none";
-    }
-  };
-
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  let title = form.elements["title"].value;
-  let author = form.elements["author"].value;
-  let pages = form.elements["pages"].value;
-  let read = (form.elements["readStatus"].value === "true");
-  let myBook = new Book(title, author, pages, read);
-  addBookToLibrary(myBook);
-  addRow(myBook);
-  addBookModal.style.display = "none";
-});
-
-let table = document.getElementById("table");
+function addDeleteBtn(book) {
+  const deleteBtn = document.createElement('button');
+  const deleteCell = document.getElementById(`deleteCell${book.id}`);
+  deleteBtn.innerHTML = 'Delete';
+  deleteCell.appendChild(deleteBtn);
+  deleteBtn.addEventListener('click', () => {
+    deleteBook(book);
+  });
+}
 
 function addRow(book) {
-  let row = table.insertRow();
+  const row = table.insertRow();
   row.id = `bookRow${book.id}`;
-  let titleCell = row.insertCell();
-  let authorCell = row.insertCell();
-  let pagesCell = row.insertCell();
-  let readCell = row.insertCell();
-  let deleteCell = row.insertCell();  
+  const titleCell = row.insertCell();
+  const authorCell = row.insertCell();
+  const pagesCell = row.insertCell();
+  const readCell = row.insertCell();
+  const deleteCell = row.insertCell();
   deleteCell.id = `deleteCell${book.id}`;
   readCell.id = `readCell${book.id}`;
   titleCell.innerHTML = book.title;
@@ -70,30 +66,28 @@ function addRow(book) {
   addDeleteBtn(book);
 }
 
-function addDeleteBtn(book) {
-  let deleteBtn = document.createElement("button");
-  let deleteCell = document.getElementById(`deleteCell${book.id}`);
-  deleteBtn.innerHTML = "Delete";
-  deleteCell.appendChild(deleteBtn);
-  deleteBtn.addEventListener("click", () => {
-    deleteBook(book);
-  })
-}
+const addBookButton = document.getElementById('addBookButton');
+const addBookModal = document.getElementById('addBookModal');
+const form = document.getElementById('bookForm');
 
-function bookStatusButton(book) {
-  let bookStatusButton = document.createElement("button");
-  let readCell = document.getElementById(`readCell${book.id}`);
-  bookStatusButton.innerHTML = book.read ? "Read" : "Not read yet";
-  readCell.appendChild(bookStatusButton);
-  bookStatusButton.addEventListener("click", () => {
-    book.changeRead();
-    updateStatusButton(bookStatusButton, book);
-  })
-}
+addBookButton.onclick = function () {
+  addBookModal.style.display = 'flex';
+};
 
-function updateStatusButton(button, book){
-  button.innerHTML = book.read ? "Read" : "Not read yet";
-}
+window.onclick = function (event) {
+  if (event.target === addBookModal) {
+    addBookModal.style.display = 'none';
+  }
+};
 
-
-
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const title = form.elements.title.value;
+  const author = form.elements.author.value;
+  const pages = form.elements.pages.value;
+  const read = form.elements.readStatus.value === 'true';
+  const myBook = new Book(title, author, pages, read);
+  addBookToLibrary(myBook);
+  addRow(myBook);
+  addBookModal.style.display = 'none';
+});
