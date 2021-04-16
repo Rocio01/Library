@@ -22,16 +22,27 @@ function addBookToLibrary(book) {
   localStorage.setItem("books", JSON.stringify(myLibrary));
 }
 
-function deleteBook(book) {
-  myLibrary.splice(myLibrary.indexOf(book), 1);
-  localStorage.setItem("books", JSON.stringify(myLibrary));
-  let row = document.getElementById(`bookRow${book.id}`);
-  row.remove();
-}
+// function deleteBook(book) {
+//   myLibrary.splice(book.id, 1);
+//   localStorage.setItem("books", JSON.stringify(myLibrary));
+//   let row = document.getElementById(`bookRow${book.id}`);
+//   row.remove();
+//   return myLibrary;
+// }
 
 let addBookButton = document.getElementById("addBookButton");
 let addBookModal = document.getElementById("addBookModal");
 let form = document.getElementById("bookForm");
+
+addBookButton.onclick = function () {
+    addBookModal.style.display = "block";
+  };
+
+  window.onclick = function (event) {
+    if (event.target === addBookModal) {
+      addBookModal.style.display = "none";
+    }
+  };
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -59,29 +70,22 @@ function addRow(book) {
   authorCell.innerHTML = book.author;
   pagesCell.innerHTML = book.pages;
   readCell.innerHTML = book.read === true ? "Read" : "Not read yet";
-  addDeleteBtn(book);
+  addDeleteBtn(book)
 }
 
 function addDeleteBtn(book) {
   let deleteBtn = document.createElement("button");
   let deleteCell = document.getElementById(`deleteCell${book.id}`);
   deleteBtn.innerHTML = "Delete";
-
-  deleteBtn.onclick = deleteBook(book);
-
-
   deleteCell.appendChild(deleteBtn);
-
-
+  deleteBtn.addEventListener("click", () => {
+    myLibrary.splice(book.id, 1);
+    localStorage.setItem("books", JSON.stringify(myLibrary));
+    let row = document.getElementById(`bookRow${book.id}`);
+    row.remove();
+  })
 }
 
-addBookButton.onclick = function () {
-  addBookModal.style.display = "block";
-};
 
-window.onclick = function (event) {
-  if (event.target === addBookModal) {
-    addBookModal.style.display = "none";
-  }
-};
+
 
