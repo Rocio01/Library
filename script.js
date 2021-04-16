@@ -1,9 +1,6 @@
 "use strict";
 
 let myLibrary = [];
-if (localStorage.getItem("books")) {
-  myLibrary = JSON.parse(localStorage.getItem("books"));
-}
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -19,12 +16,10 @@ Book.prototype.changeRead = function () {
 function addBookToLibrary(book) {
   myLibrary.push(book);
   book.id = myLibrary.indexOf(book)
-  localStorage.setItem("books", JSON.stringify(myLibrary));
 }
 
 function deleteBook(book) {
   myLibrary.splice(book.id, 1);
-  localStorage.setItem("books", JSON.stringify(myLibrary));
   let row = document.getElementById(`bookRow${book.id}`);
   row.remove();
   return myLibrary;
@@ -96,8 +91,7 @@ function bookStatusButton(book) {
   })
 }
 
-function updateStatusButton(button, book){  
-  // localStorage.setItem("books", JSON.stringify(myLibrary));
+function updateStatusButton(button, book){
   button.innerHTML = book.read ? "Read" : "Not read yet";
 }
 
