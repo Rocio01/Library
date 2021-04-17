@@ -12,17 +12,17 @@ Book.prototype.changeRead = function () {
   this.read = !this.read;
 };
 
-function addBookToLibrary(book) {
-  myLibrary.push(book);
-  book.id = myLibrary.indexOf(book);
-}
+Book.prototype.addToLibrary = function () {
+  myLibrary.push(this);
+  this.id = myLibrary.indexOf(this);
+};
 
-function deleteBook(book) {
-  myLibrary.splice(book.id, 1);
-  const row = document.getElementById(`bookRow${book.id}`);
+Book.prototype.delete = function () {
+  myLibrary.splice(this.id, 1);
+  const row = document.getElementById(`bookRow${this.id}`);
   row.remove();
   return myLibrary;
-}
+};
 
 function updateStatusButton(button, book) {
   button.innerHTML = book.read ? 'Read' : 'Not read yet';
@@ -45,7 +45,7 @@ function addDeleteBtn(book) {
   deleteBtn.innerHTML = 'Delete';
   deleteCell.appendChild(deleteBtn);
   deleteBtn.addEventListener('click', () => {
-    deleteBook(book);
+    book.delete();
   });
 }
 
@@ -87,7 +87,8 @@ form.addEventListener('submit', (e) => {
   const pages = form.elements.pages.value;
   const read = form.elements.readStatus.value === 'true';
   const myBook = new Book(title, author, pages, read);
-  addBookToLibrary(myBook);
+  myBook.addToLibrary();
+  // addBookToLibrary(myBook);
   addRow(myBook);
   addBookModal.style.display = 'none';
 });
