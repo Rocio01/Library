@@ -6,23 +6,25 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
+};
+
+Book.prototype = { ...Book.prototype,
+  changeRead: function () {
+    this.read = !this.read;
+  },
+
+  addToLibrary: function () {
+    myLibrary.push(this);
+    this.id = myLibrary.indexOf(this);
+  },
+
+  delete: function () {
+    myLibrary.splice(this.id, 1);
+    const row = document.getElementById(`bookRow${this.id}`);
+    row.remove();
+    return myLibrary;
+  }
 }
-
-Book.prototype.changeRead = function () {
-  this.read = !this.read;
-};
-
-Book.prototype.addToLibrary = function () {
-  myLibrary.push(this);
-  this.id = myLibrary.indexOf(this);
-};
-
-Book.prototype.delete = function () {
-  myLibrary.splice(this.id, 1);
-  const row = document.getElementById(`bookRow${this.id}`);
-  row.remove();
-  return myLibrary;
-};
 
 function updateStatusButton(button, book) {
   button.innerHTML = book.read ? 'Read' : 'Not read yet';
