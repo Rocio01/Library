@@ -6,25 +6,26 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-};
+}
 
-Book.prototype = { ...Book.prototype,
-  changeRead: function () {
+Book.prototype = {
+  ...Book.prototype,
+  changeRead() {
     this.read = !this.read;
   },
 
-  addToLibrary: function () {
+  addToLibrary() {
     myLibrary.push(this);
     this.id = myLibrary.indexOf(this);
   },
 
-  delete: function () {
+  delete() {
     myLibrary.splice(this.id, 1);
     const row = document.getElementById(`bookRow${this.id}`);
     row.remove();
     return myLibrary;
-  }
-}
+  },
+};
 
 function updateStatusButton(button, book) {
   button.innerHTML = book.read ? 'Read' : 'Not read yet';
@@ -51,21 +52,26 @@ function addDeleteBtn(book) {
   });
 }
 
-function addRow(book) {
-  const row = table.insertRow();
-  row.id = `bookRow${book.id}`;
-  const titleCell = row.insertCell();
-  const authorCell = row.insertCell();
-  const pagesCell = row.insertCell();
-  const readCell = row.insertCell();
-  const deleteCell = row.insertCell();
-  deleteCell.id = `deleteCell${book.id}`;
-  readCell.id = `readCell${book.id}`;
-  titleCell.innerHTML = book.title;
-  authorCell.innerHTML = book.author;
-  pagesCell.innerHTML = book.pages;
-  bookStatusButton(book);
-  addDeleteBtn(book);
+function displayBooks() {
+  document.querySelectorAll('.bookRow').forEach((el) => el.remove());
+
+  for (let i = 0; i < myLibrary.length; i += 1) {
+    const row = table.insertRow();
+    row.id = `bookRow${myLibrary[i].id}`;
+    row.className = 'bookRow';
+    const titleCell = row.insertCell();
+    const authorCell = row.insertCell();
+    const pagesCell = row.insertCell();
+    const readCell = row.insertCell();
+    const deleteCell = row.insertCell();
+    deleteCell.id = `deleteCell${myLibrary[i].id}`;
+    readCell.id = `readCell${myLibrary[i].id}`;
+    titleCell.innerHTML = myLibrary[i].title;
+    authorCell.innerHTML = myLibrary[i].author;
+    pagesCell.innerHTML = myLibrary[i].pages;
+    bookStatusButton(myLibrary[i]);
+    addDeleteBtn(myLibrary[i]);
+  }
 }
 
 const addBookButton = document.getElementById('addBookButton');
@@ -90,7 +96,6 @@ form.addEventListener('submit', (e) => {
   const read = form.elements.readStatus.value === 'true';
   const myBook = new Book(title, author, pages, read);
   myBook.addToLibrary();
-  // addBookToLibrary(myBook);
-  addRow(myBook);
+  displayBooks();
   addBookModal.style.display = 'none';
 });
