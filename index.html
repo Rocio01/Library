@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="style.css" type="text/css">
+    <title>Library</title>
+  </head>
+  <body>
+  
+  <h1>My Library</h1>
+<div class="center-content">
+  <button  id="addBookButton">Add Book </button>
+</div>
+ <div id="addBookModal" class="bookModal">
+    <form id="bookForm" class="form center-content">
+        <input type="text" name="title" placeholder="Title" required maxlength="50" /> <br>
+        <input type="text" name="author" placeholder="Author" required maxlength="50" /> <br>
+        <input type="number" name="pages" placeholder="Pages" required max="50000" /> <br>
+        <select name="readStatus"> 
+            <option value=true>Read</option>
+            <option value=false>Not read yet</option>
+    </select>
+        <input class="button-submit" id="submit" type="submit"  value="Add Book"/>
+    </form>
+
+ </div>
+   <div class="center-content">
+    <table id='table' class="book-table">
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Pages</th>
+        <th>Read</th>
+        <th>Delete book</th>
+      </tr>
+    </table>
+    <script src="script.js"></script>
+
+   </div>
+  </body>
+</html>
