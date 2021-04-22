@@ -1,34 +1,7 @@
 (() => {
   //  private
     const myLibrary = [];
-    const table = document.getElementById('table');
-  
-    // function Book(title, author, pages, read) {
-    //   this.title = title;
-    //   this.author = author;
-    //   this.pages = pages;
-    //   this.read = read;
-    // }
-  
-    // Book.prototype = {
-    //   ...Book.prototype,
-    //   changeRead() {
-    //     this.read = !this.read;
-    //   },
-  
-    //   addToLibrary() {
-    //     myLibrary.push(this);
-    //     this.id = myLibrary.indexOf(this);
-    //   },
-  
-    //   delete() {
-    //     myLibrary.splice(this.id, 1);
-    //     const row = document.getElementById(`bookRow${this.id}`);
-    //     row.remove();
-    //     return myLibrary;
-    //   },
-    // };
-  
+    const table = document.getElementById('table');  
     const bookFactory = (title, author, pages, read) => ({
       title, author, pages, read,
     });
