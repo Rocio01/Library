@@ -1,15 +1,14 @@
 const myLibrary = [];
 const table = document.getElementById('table');
 
-
 class Book {
   constructor(title, author, pages, read) {
     this.title = title;
     this.author = author;
     this.pages = pages;
-    this.read  = read;
+    this.read = read;
   }
- 
+
   changeRead() {
     this.read = !this.read;
   }
@@ -25,9 +24,7 @@ class Book {
     row.remove();
     return myLibrary;
   }
-
 }
-
 
 function updateStatusButton(button, book) {
   button.innerHTML = book.read ? 'Read' : 'Not read yet';
